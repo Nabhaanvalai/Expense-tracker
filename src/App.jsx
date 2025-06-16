@@ -1,59 +1,46 @@
-import React, { useState } from "react";
-import './App.css'
+import React from 'react';
+import './App.css';
+import { AppProvider } from './context/AppContext';
+import Header from './components/Header';
+import TransactionList from './components/TransactionList';
+import AddTransaction from './components/AddTransaction';
 
-export default function App() {
-  const [input, setInput] = useState(" ");
-  const [amount, setAmount] = useState(" ");
-  const [expense, setExpense] = useState([]);
-
-  function addexpense() {
-    if (!input || !amount) return;
-
-    const newExpense = {
-      id : expense.length+1,
-      title : input,
-      amount : amount
-    };
-    setExpense([...expense,newExpense])
-    setInput('');
-    setAmount('');
-  }
-
-  function deleteExpense(id) {
-    setExpense(expense.filter((expense)=> expense.id !== id));
-  }
+const App = () => {
   return (
-    <div>
-      <h1>Expense Tracker</h1>
-      <div>
-        <input
-          type="text"
-          name="expense"
-          id="expenses"
-          placeholder="expenses"
-          onChange={(e) => setInput(e.target.value)}
-          value={input}
-        />
-        <input
-          type="number"
-          id="amount"
-          placeholder="Amount"
-          onChange={(e) => setAmount(e.target.value)}
-          value={amount}
-        />
-        <button onClick={addexpense}>Add Expense</button>
+    <AppProvider>
+      <div className="container">
+        <Header />
+        <div className="main-content">
+          <TransactionList />
+          <AddTransaction />
+        </div>
       </div>
-      <ul className="expense-list">
-        {
-        expense.map((expense) => (
-          <li key={expense.id}>
-            <span>{expense.title}</span>
-            <span>{expense.amount}</span>
-            <button onClick={()=>deleteExpense(expense.id)}>Delete</button>
-          </li>
-        ))
-      }
-      </ul>
-    </div>
+    </AppProvider>
   );
-}
+};
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
